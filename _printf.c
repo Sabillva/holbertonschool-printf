@@ -1,58 +1,51 @@
 #include "main.h"
+#include <stdarg.h>
 
 /**
- * _printf - prints a formatted string
- * @format: the format string
+ *_printf - prints to output according to format
+ *@format: character string
  *
- * Return: the number of characters printed
+ *Return: number of characters printed
  */
+
 int _printf(const char *format, ...)
 {
+	int i = 0, j = 0;
+	int (*f)(va_list);
 	va_list args;
-	int count = 0;
-	const char *p;
-
-	if (!format)
-		return (-1);
 
 	va_start(args, format);
-
-	for (p = format; *p != '\0'; p++)
+	if (format == NULL || !format[i + 1])
+		return (-1);
+	while (format[i])
 	{
-		if (*p == '%')
+		if (format[i] == '%')
 		{
-		p++;
-		switch (*p)
-		{
-			case 'c':
-				count += _putchar(va_arg(args, int));
-				break;
-			case 's':
+			if (format[i + 1])
+			{
+				if (format[i + 1] != 'c' && format[i + 1] != 's'
+				&& format[i + 1] != '%' && format[i + 1] != 'd'
+				&& format[i + 1] != 'i')
 				{
-					char *str = va_arg(args, char *);
-
-					while (*str)
-
-					{
-						count += _putchar(*str++);
-					}
-					break;
+					j += _putchar(format[i]);
+					j += _putchar(format[i + 1]);
+					i++;
 				}
-			case '%':
-				count += _putchar('%');
-						break;
-			default:
-						count += _putchar('%');
-						count += _putchar(*p);
-						break;
+				else
+				{
+					f = get_func(&format[i + 1]);
+					j += f(args);
+					i++;
+				}
+			}
 		}
-	}
 		else
 		{
-			count += _putchar(*p);
+			_putchar(format[i]);
+			j++;
 		}
+		i++;
 	}
-
 	va_end(args);
-	return (count);
+	return (j);
 }
