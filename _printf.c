@@ -13,14 +13,14 @@ int _printf(const char *format, ...)
 	const char *p;
 
 	if (!format)
-        return (-1);
+		return (-1);
 
 	va_start(args, format);
 
 	for (p = format; *p != '\0'; p++)
 	{
 		if (*p == '%')
-        {
+		{
 		p++;
 		switch (*p)
 		{
@@ -30,7 +30,9 @@ int _printf(const char *format, ...)
 			case 's':
 				{
 					char *str = va_arg(args, char *);
+
 					while (*str)
+
 					{
 						count += _putchar(*str++);
 					}
