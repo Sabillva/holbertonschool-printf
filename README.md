@@ -13,3 +13,5 @@ This project is about creating a custom printf function in C.
 - va_end
 - va_copy
 - va_arg
+
+Authors: Sarkhan Baghirli  and Sabina Allahverdiyeva
